@@ -1,6 +1,8 @@
 import express from 'express';
 import mysql from 'mysql2';
 const app = express();
+app.use(express.json());
+
 const port = 3000;
 app.listen(3000, () => {
     console.log(`Server is running on http://localhost:3000`);
@@ -54,6 +56,25 @@ connection.connect((err) => {
 
      app.post('/addAppliance',(req,res)=>
     {
-
+        const {contactNo, name, address,serial, companyName, Type, dateOfArrival }=req.body;
+        if(!contactNo|| !name|| !address|| !serial || !companyName || !Type || !dateOfArrival)
+        {
+            console.log(contactNo);
+            return res.status(404).send('Missing parameters');
+        }
+        else{
+            const query = 'Call AddApplianceAndClient(?,?,?,?,?,?,?)';
+            connection.query(query,[contactNo, name, address,serial, companyName, Type, dateOfArrival],(err,result)=>
+            {
+            if(err)
+                {
+                    console.log(err.message);
+                    return res.status(500).send('error callling stored procedure');
+                }    
+                console.log('client added' ,res);
+                return res.status(200).send('client and appilance added successfully!');
+            }
+        )
+    }
     })
      // connection.close();
