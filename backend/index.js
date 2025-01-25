@@ -130,6 +130,34 @@ catch(e)
     console.log(`unexpected error : ${e.message}`);
 }
 })
+
+app.get('/receipt/:contact_No',(req,res)=>{
+    try{
+
+        const {contact_No}=req.params;
+        if(!contact_No)
+            {
+                console.log('There must be a contact number to fetch receipt!');
+                return res.status(404).send('There must be a contact number to fetch receipt!');
+            }
+            const query=`select * from client as c
+            join receipt as r on r.contact_No=c.contact_No
+            where c.contact_No=?;`;
+    connection.query (query,[contact_No],(err,result)=>{
+        if(err)
+            {
+            console.log(`Query failed : ${err.message}`);
+            return res.status(500).send('query Failed!');
+        }
+        return res.status(200).send(result);
+    })
+}
+catch(e)
+{
+    console.log('unexpected error!');
+    console.log(e.message);
+}
+})
 // app.post('/addCentre', (req, res) => {
 //     const { Cid } = req.body;
 //     if (!Cid) {
@@ -224,7 +252,7 @@ app.post('/addAppliance', (req, res) => {
             const query = 'Call AddApplianceAndClient(?,?,?,?,?,?,?,?,?)';
             try {
                 console.log('client added', contact_No);
-                connection.query(query, [serial_No, Type, companyName, dateOfArrival, Cid, Sid, name, contact_No, address],(err,result)=>{
+                connection.query(query, [serial_No, companyName, Type,dateOfArrival, Cid, Sid, name, contact_No, address],(err,result)=>{
                     if(err)
                     {
                         console.log(err.message);
@@ -240,6 +268,24 @@ app.post('/addAppliance', (req, res) => {
         }
     })
 
+})
+app.post('/generateReceipt',(req,res)=>{
+    const {R_No, contact_No,amount} = req.body;
+    if(!R_No || !contact_No || !amount)
+    {
+        console.log(R_No,contact_No,amount);
+        return res.status(404).send('Missing parameters');
+    }
+    const query='insert into receipt (R_No,contact_No,amount) values (?,?,?)';
+    connection.query(query,[R_No,contact_No,amount],(err,result)=>{
+        if(err)
+        {
+            console.log(err.message);
+            console.log('Failed to generate receipt');
+            return res.status(500).send('Query Failed!');
+        }
+        return res.status(200).send('Receipt generated Successfully!');
+    })
 }
 )
 
