@@ -1,0 +1,39 @@
+/* Style for the navbar */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+}
+
+/* Ensures that the navbar stays sticky at the top */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+.custom-shadow {
+  box-shadow: 0vh 1vh 4vh rgb(78, 77, 77);
+}
+.animated-message {
+  text-align: center;
+  /* font-size: 1rem; */
+  font-weight: bold;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn 3s ease-out forwards;
+  margin-top: 0.1vh; /* Adds space from top */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

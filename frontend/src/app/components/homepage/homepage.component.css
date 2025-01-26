@@ -1,0 +1,98 @@
+/* Animation for the welcome message */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+.animated-btn {
+  text-align: center;
+  /* font-size: 2.5rem; */
+  font-weight: bold;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn2 3s ease-out forwards;
+  margin-top: 0.1vh; /* Adds space from top */
+}
+
+@keyframes fadeIn2 {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animated-message {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  opacity: 0;
+  animation: fadeIn 3s ease-out forwards;
+  margin-top: 0.1vh; /* Adds space from top */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.body{
+  background-color: skyblue;
+  color: yellow;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+.content {
+  text-align: center;
+  padding: 10vh;
+  background-color: #fff; /* White background for content */
+  border-radius: 7vh;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.join-btn {
+  background-color: #4CAF50; /* Green button color */
+  color: white;
+  padding: 2vh 4vh;
+  margin: auto;
+margin-top: 10%;
+  border: none;
+  border-radius: 4vh;
+  cursor: pointer;
+}
+.join-btn:hover{
+transform: scale(1.025) !important;
+}
+.container{
+  background-color: skyblue;
+}

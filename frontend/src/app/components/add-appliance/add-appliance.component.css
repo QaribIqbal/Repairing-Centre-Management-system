@@ -1,0 +1,37 @@
+.container {
+  max-width: 50vw;
+  max-height: 200vh;
+  margin: auto;
+  scroll-behavior: smooth;
+  overflow: hidden;
+  margin-top: 40%;
+}
+.form{
+  max-height: 65vh;
+  scroll-behavior: smooth;
+  scrollbar-width:thin;
+  overflow:auto,
+}
+.card {
+
+  overflow: scroll;
+  overflow-y: auto;
+   overflow-x: hidden;
+  /* border: none; */
+  border-radius: 5vh !important;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: none;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #007bff;
+}
+
+.sub-btn{
+  margin: 40%;
+  margin-bottom: 0%;
+}
