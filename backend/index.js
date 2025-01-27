@@ -1,8 +1,9 @@
 import express from "express";
 import mysql from "mysql2";
 const app = express();
+import cors from "cors";
+app.use(cors());
 app.use(express.json());
-
 const port = 3000;
 app.listen(3000, () => {
   console.log(`Server is running on http://localhost:3000`);
@@ -111,6 +112,7 @@ app.get("/appliances", (req, res) => {
 });
 app.get("/getAppliance/:Cid", (req, res) => {
   const { Cid } = req.params;
+  console.log(Cid);
   const query = `SELECT 
     serial_No,
     Type,
@@ -256,7 +258,7 @@ app.post("/giveFeedback", (req, res) => {
 
 app.post("/addCentre", (req, res) => {
   const { Cid } = req.body;
-
+console.log(Cid);
   // Check if Cid is provided
   if (!Cid) {
     console.log("Centre ID is empty:", Cid);
@@ -272,7 +274,7 @@ app.post("/addCentre", (req, res) => {
         return res.status(500).send("Failed Query!");
       }
       console.log("Query Successful:", result);
-      return res.status(200).send(`Centre ID ${Cid} added successfully!`);
+      return res.status(200).json({message:'Centre ID ${Cid} added successfully!',success:true});
     });
   } catch (e) {
     console.error("Unexpected Error:", e.message);
@@ -327,20 +329,20 @@ app.post("/addAppliance", (req, res) => {
       Sid,
       Cid,
     } = req.body;
-    if (
-      !contact_No ||
-      !name ||
-      !address ||
-      !serial_No ||
-      !companyName ||
-      !Type ||
-      !dateOfArrival ||
-      !Sid ||
-      !Cid
-    ) {
-      console.log(contact_No);
-      return res.status(404).send("Missing parameters");
-    } else {
+    // if (
+    //   !contact_No ||
+    //   !name ||
+    //   !address ||
+    //   !serial_No ||
+    //   !companyName ||
+    //   !Type ||
+    //   !dateOfArrival ||
+    //   !Sid ||
+    //   !Cid
+    // ) {
+    //   console.log(req.body);
+    //   return res.status(404).send("Missing parameters");
+    // } else {
       const query = "Call AddApplianceAndClient(?,?,?,?,?,?,?,?,?)";
       try {
         console.log("client added", contact_No);
@@ -364,7 +366,7 @@ app.post("/addAppliance", (req, res) => {
             }
             return res
               .status(200)
-              .send("client and appilance added successfully!");
+              .json({message:'client and appilance added successfully!',success:true});
           }
         );
       } catch (e) {
@@ -372,7 +374,8 @@ app.post("/addAppliance", (req, res) => {
         return res.status(500).send("Unexpected error");
       }
     }
-  });
+  // }
+);
 });
 app.post("/generateReceipt", (req, res) => {
   const { R_No, contact_No, amount } = req.body;

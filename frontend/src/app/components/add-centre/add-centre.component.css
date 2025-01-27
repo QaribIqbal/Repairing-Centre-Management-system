@@ -44,3 +44,11 @@
   color: red;
   font-size: 0.8rem;
 }
+
+.fetch-btn{
+  padding-left: 4vh;
+  padding-right: 4vh;
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+  border-radius: 4vh;
+}

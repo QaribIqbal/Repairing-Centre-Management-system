@@ -37,3 +37,10 @@
     transform: translateY(0);
   }
 }
+
+.navbar-container{
+  display: flex;
+  /* text-align: left; */
+  justify-content:flex-start;
+  margin: 1vh;
+}

@@ -1,0 +1,90 @@
+<div class="container mt-5">
+  <div class="card shadow-lg p-4 rounded-4">
+    <h2 class="text-center mb-4">Add Centre ID for New Centre</h2>
+    <!-- Scrollable Form Wrapper -->
+    <div class="form">
+      <form [formGroup]="addCentreForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="Cid" class="form-label">Centre ID :</label>
+          <div class="input-group">
+            <span class="input-group-text">
+              <i class="fas fa-user"></i>
+            </span>
+            <input type="number" id="Cid" class="form-control" formControlName="Cid"
+              placeholder="Enter centre ID here"
+              [class.is-invalid]="addCentreForm.get('Cid')?.invalid && (addCentreForm.get('Cid')?.dirty || addCentreForm.get('Cid')?.touched)" />
+            <div
+              *ngIf="addCentreForm.get('Cid')?.invalid && (addCentreForm.get('Cid')?.dirty || addCentreForm.get('Cid')?.touched)"
+              class="invalid-feedback">
+              Client Name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid mt-3 sub-btn">
+          <button type="submit" class="btn btn-primary" [disabled]="addCentreForm.invalid">
+            <i class="fas fa-save me-2"></i> Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h3><strong class="text-center mb-5">Search Appliances</strong></h3>
+    <div class="d-flex justify-content-center align-items-center  mt-2">
+      <input type="text" [(ngModel)]="centreId" placeholder="Enter Centre ID" class="form-control mb-3 me-2">
+      <button (click)="fetchAppliances()" class="btn btn-primary fetch-btn ms-4 mb-4">Fetch</button>
+    </div>
+
+   </div>
+   <p>
+    You can do filter table data, in this case with observables and our <code>NgbHighlight</code> component used in
+    Typeahead
+  </p>
+
+  <form>
+    <div class="mb-3 row">
+      <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+      <div class="col-xs-3 col-sm-auto">
+        <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+      </div>
+    </div>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Serial No.</th>
+        <th scope="col">Type</th>
+        <th scope="col">Company</th>
+        <th scope="col">Date of Arrival</th>
+        <th scope="col">Store Id</th>
+        <th scope="col">Contact Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (country of countries$ | async; track country.serial_No; let i = $index) {
+        <tr>
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            <!-- <img
+              [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag"
+              [alt]="'The flag of ' + country.name"
+              class="me-2"
+              style="width: 20px"
+            /> -->
+            <ngb-highlight [result]="country.serial_No| number" [term]="filter.value" />
+          </td>
+          <td><ngb-highlight [result]="country.Type" [term]="filter.value" /></td>
+          <td><ngb-highlight [result]="country.companyName" [term]="filter.value" /></td>
+          <td><ngb-highlight [result]="country.dateOfArrival" [term]="filter.value" /></td>
+          <td><ngb-highlight [result]="country.Sid | number" [term]="filter.value" /></td>
+          <td><ngb-highlight [result]="country.contact_No" [term]="filter.value" /></td>
+
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" style="text-align: center">No countries found</td>
+        </tr>
+      }
